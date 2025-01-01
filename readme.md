@@ -1,6 +1,3 @@
-setup flask project - MVC
-    how to setup flask project- need env, file srutcture
-    setup mysql and integrate it with flask using sqlalchemy
 
 Notes CRUD- Notes can be Created, edited, deleted, and viewed
     
@@ -36,18 +33,6 @@ Notes Table Schema:
     created_by: Foreign key (stores user ID who created the note).
     updated_by: Foreign key (stores user ID who last updated the note).
     deleted_at: Timestamp (marks when the note was deleted, null if not deleted).
-
-
-user auth-Users can log in/sign up with different roles (e.g., admin, clinician, assistant).
-    user table-id,username,password,role
-    registration api enpoint- accepts data, validates input, stores data
-    login api endpoint - validates credentialss and returns a token for authenticated users
-
-assigning to specific users
-
-role-based permissions- only specific roles can edit or delete a note.
-
-file upload for PDF or images (store in a database or local directory)
 
 
 
