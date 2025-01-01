@@ -1,20 +1,26 @@
-Focus on the core CRUD functionality and basic role-based authentication. Leave advanced features like templates and version history for future iterations.
+setup flask project - MVC
+    how to setup flask project- need env, file srutcture
+    setup mysql and integrate it with flask using sqlalchemy
 
-MVP (Minimum Viable Product):
+Notes CRUD- Notes can be Created, edited, deleted, and viewed
+    notes table- notes_id,content,created_by,updated_by
+    notes POST api endpoint - accepts content and userid and saves it in db and returns the created notes
+    notes GET api endpoint - fetches all notes associated with auth user
 
-1. Users can log in/sign up with different roles (e.g., admin, clinician, assistant).
+user auth-Users can log in/sign up with different roles (e.g., admin, clinician, assistant).
+    user table-id,username,password,role
+    registration api enpoint- accepts data, validates input, stores data
+    login api endpoint - validates credentialss and returns a token for authenticated users
 
-2. Notes can be:
+assigning to specific users
 
-    Created, edited, deleted, and viewed.
+role-based permissions- only specific roles can edit or delete a note.
 
-    Assigned to specific users.
+file upload for PDF or images (store in a database or local directory)
 
-3. Implement role-based permissions:
 
-    Only specific roles can edit or delete a note.
 
-4. Basic file upload for PDF or images (store in a database or local directory).
+
 
 
 
@@ -27,4 +33,4 @@ Stretch Features (For Future Iterations):
     Search and filter functionality.
 
 
-Why This Level? It’s enough to showcase backend skills like role-based authentication, file handling, and CRUD operations, which are core skills for a backend developer. You won’t get bogged down in advanced features like versioning, which can be complex for a junior.
+role-based authentication, file handling, and CRUD operations
