@@ -5,7 +5,7 @@ db = SQLAlchemy()
 # Patient Model
 class Patient(db.Model):
     __tablename__ = 'patients'
-    patients_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer)
     # Define the relationship to the Note model
@@ -17,21 +17,20 @@ class Patient(db.Model):
 # Notes Model
 class Note(db.Model):
     __tablename__ = 'notes'
-    notes_id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    note_text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     
     def __repr__(self):
         return f'<Note {self.id}>'
-
-
+ 
     def to_json(self):
         return {
-            "notes_id" : self.notes_id,
-            "content" : self.content,
+            "id" : self.id,
+            "note_text" : self.note_text,
             "timestamp" : self.timestamp,
             "patient_id" : self.patient_id,
-
+            
             
         }
