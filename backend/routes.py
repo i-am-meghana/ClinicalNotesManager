@@ -11,39 +11,32 @@ def get_notes():
     return jsonify(result), 200
 
 @app.route('/patients/<int:patient_id>/notes', methods=['POST'])
-#create a note in the database with this data
 def create_note(patient_id):
     try:
+        # Get the content from the incoming JSON request
+        # Get the content of the note from the request body
+        note_content = request.json.get('content')
         
-        note_data = request.json.get('note_text')
-        if not note_data:
-            return jsonify({"error": "Note text is required"}), 400
+        if not note_content:
+            return jsonify({"error": "Note content is required"}), 400
+ # Step 2: Find the patient from the database
+        # Find the patient by the given patient_id
         patient = Patient.query.get(patient_id)
+ # Step 3: If patient doesn't exist, return an erro       
         if not patient:
             return jsonify({"error": "Patient not found"}), 404
-    
-        new_note = Note(note_text=note_data, patient_id=patient_id)
+
+  # Step 4: Create the new note, associate with the patient       # Create a new note for the patient
+        new_note = Note(content=note_content, patient_id=patient)
+
+  # Step 5: Save the new note in the database       # Add the new note to the session and commit the changes to the database
         db.session.add(new_note)
         db.session.commit()
-        return jsonify({"message": "Note added successfully"}), 201
-        
-        #whatever that is being used here to get data for the table. from where
-        notes_id = data.get("notes_id")
-        content = data.get("content")
-       
 
-        
-        #we are putting the content into a new row right?
-        new_note = Note(notes_id = notes_id, content = content, description = description, gender = gender, img_url = img_url)
+ # Step 6: Send a response back to the client        # Return success message
+        return jsonify({"message": "Note added successfully", "note": new_note.to_json()}), 201
 
-        db.session.add(new_friend)
-        db.session.commit()
-        
-        #shows up in bruno. 
-        return jsonify({"msg": "Friend created succesfully"}), 201
-    
     except Exception as e:
+        # Rollback the session in case of an error and return the error message
         db.session.rollback()
-        return jsonify({"error":str(e)}), 500
-
-
+        return jsonify({"error": str(e)}), 500
