@@ -13,12 +13,22 @@ class Patient(db.Model):
     
     def __repr__(self):
         return f'<Patient {self.name}>'
+    
+    def to_json(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "notes": [note.to_json() for note in self.notes]  # Convert associated notes to JSON as well
+        }
+
+
 
 # Notes Model
 class Note(db.Model):
     __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
-    note_text = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     
@@ -28,7 +38,7 @@ class Note(db.Model):
     def to_json(self):
         return {
             "id" : self.id,
-            "note_text" : self.note_text,
+            "content" : self.note_text,
             "timestamp" : self.timestamp,
             "patient_id" : self.patient_id,
             
